@@ -55,7 +55,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
                 
                 let weatherJSON : JSON = JSON(response.result.value!)
                 
-                //print(weatherJSON)
+                print(weatherJSON)
                 
                 self.updateWeatherData(json : weatherJSON)
             }
@@ -91,6 +91,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
         
         updateUIWeatherData()
             
+            print ("GOOD!")
+            
         } else {
             cityLabel.text = "Weather Unavailable"
         }
@@ -123,7 +125,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[locations.count - 1]
         if location.horizontalAccuracy > 0 {
-            locationManager.stopUpdatingLocation()
+            
+            self.locationManager.stopUpdatingLocation()
             
             print("longitude = \(location.coordinate.longitude), latitude = \(location.coordinate.latitude)")
             
@@ -153,7 +156,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     
     func userEnteredANewCity(city: String) {
         
-        let params : [String : String] = ["g" : city, "appid" : APP_ID]
+        let params : [String : String] = ["q" : city, "appid" : APP_ID]
         getWeatherData(url: WEATHER_URL, parameters: params)
     }
     
